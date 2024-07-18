@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Login and Hiring Process</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #50b3a2;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #2980b9 3px solid;
+            display: flex;
+            justify-content: space-between; /* Align items to right */
+            align-items: center; /* Center vertically */
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-left: 20px; /* Add some margin to separate links */
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        .button {
+            display: inline-block;
+            color: #fff;
+            background: #333;
+            padding: 7px 20px;
+            margin: 20px 0;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background: #50b3a2;
+        }
+        section {
+            padding: 20px;
+        }
+        .subsection {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>HR Login and Hiring Process</h1>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Recruitment</a></li>
+                    <li><a href="#">Interview Process</a></li>
+                    <li><a href="#">Selection and Onboarding</a></li>
+                    <li><a href="#">Talent Acquisition and Retention</a></li>
+                    <li><a href="#">Employee and Student Data Management</a></li>
+                    <li><a href="#">Company Updates and Expectations</a></li>
+                    <!-- Add other navigation links as needed -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="container">
+        <div class="subsection">
+            <h2>Welcome <?php echo htmlspecialchars($_SESSION['firstName'] . ' ' . $_SESSION['lastName']); ?></h2>
+            <!-- Other sections and buttons can follow -->
+        </div>
+        <div class="subsection">
+            <h2>Recruitment</h2>
+            <button class="button" onclick="location.href='recruitment.html'">Job Posting and Recruitment</button>
+            <button class="button" onclick="location.href='screening.html'">Screening Resumes</button>
+        </div>
+        <div class="subsection">
+            <h2>Interview Process</h2>
+            <button class="button" onclick="location.href='interview_coordination.html'">Interview Coordination</button>
+            <button class="button" onclick="location.href='feedback.html'">Providing Feedback</button>
+        </div>
+        <div class="subsection">
+            <h2>Selection and Onboarding</h2>
+            <button class="button" onclick="location.href='candidate_selection.html'">Candidate Selection</button>
+            <button class="button" onclick="location.href='onboarding.html'">Onboarding</button>
+        </div>
+        <div class="subsection">
+            <h2>Talent Acquisition and Retention</h2>
+            <button class="button" onclick="location.href='talent_acquisition.html'">Talent Acquisition</button>
+            <button class="button" onclick="location.href='retention.html'">Retention Strategies</button>
+        </div>
+        <div class="subsection">
+            <h2>Employee and Student Data Management</h2>
+            <button class="button" onclick="location.href='profiles.html'">Viewing Detailed Profiles</button>
+            <button class="button" onclick="location.href='data_analytics.html'">Using Data Analytics</button>
+        </div>
+        <div class="subsection">
+            <h2>Company Updates and Expectations</h2>
+            <button class="button" onclick="location.href='company_announcements.html'">Company Announcements</button>
+            <button class="button" onclick="location.href='skill_requirements.html'">Skill Requirements and Trends</button>
+        </div>
+        <div class="subsection">
+            <button class="button" onclick="location.href='edit_details.html'">Edit Your Details</button>
+        </div>
+        <!-- Add more sections and buttons as per your requirement -->
+    </section>
+</body>
+</html>
