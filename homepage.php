@@ -23,6 +23,6 @@ $user = $result->fetch_assoc();
     <title>Homepage</title>
 </head>
 <body>
-    <?php include('hr_details.html'); ?>
+    <?php include('index1.html'); ?>
 </body>
 </html>
