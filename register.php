@@ -1,61 +1,69 @@
 <?php
-include 'connect.php';
+session_start();
+require 'db_connection1.php';
 
-if (isset($_POST['signUp'])) {
-    // Registration
-    $firstName = $_POST['fName'];
-    $lastName = $_POST['lName'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
-    
-    // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash password
 
     // Check if email already exists
-    $checkEmail = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $checkEmail->bind_param("s", $email);
-    $checkEmail->execute();
-    $result = $checkEmail->get_result();
+    $stmt = $conn->prepare("SELECT email FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        echo "Email Address Already Exists!";
-    } else {
+    if ($result->num_rows === 0) {
         // Insert new user
-        $insertQuery = $conn->prepare("INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
-        $insertQuery->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+        $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $firstName, $lastName, $email, $password);
+        $stmt->execute();
 
-        if ($insertQuery->execute()) {
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['firstName'] = $firstName;
-            $_SESSION['lastName'] = $lastName;
-            header("Location: homepage.php");
-            exit();
-        } else {
-            echo "Error: " . $conn->error;
-        }
-    }
-} elseif (isset($_POST['signIn'])) {
-    // Sign In
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Fetch user details
-    $sql = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $sql->bind_param("s", $email);
-    $sql->execute();
-    $result = $sql->get_result();
-    $user = $result->fetch_assoc();
-
-    if ($user && password_verify($password, $user['password'])) {
-        session_start();
-        $_SESSION['email'] = $user['email'];
-        $_SESSION['firstName'] = $user['firstName'];
-        $_SESSION['lastName'] = $user['lastName'];
-        header("Location: homepage.php");
+        // Redirect to login page
+        header("Location: login.php");
         exit();
     } else {
-        echo "Incorrect Email or Password";
+        $error = "Email already registered.";
     }
+
+    $stmt->close();
+    $conn->close();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register</h2>
+        <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
+        <form method="post" action="">
+            <div class="input-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" required>
+            </div>
+            <div class="input-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <input type="submit" class="btn" value="Register">
+        </form>
+        <p><a href="login.php">Login</a></p>
+    </div>
+</body>
+</html>
