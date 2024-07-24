@@ -23,6 +23,6 @@ $user = $result->fetch_assoc();
     <title>Homepage</title>
 </head>
 <body>
-    <?php include('index1.html'); ?>
+    <?php include('logout.php'); ?>
 </body>
 </html>
