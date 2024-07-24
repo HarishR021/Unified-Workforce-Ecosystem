@@ -1,3 +1,3 @@
 <?php
-phpinfo();
+phpinfo('hi hello');
 ?>

@@ -1,18 +1,9 @@
 <?php
 session_start();
-include("connect.php");
-
 if (!isset($_SESSION['email'])) {
     header("Location: index.php");
     exit();
 }
-
-$email = $_SESSION['email'];
-$query = $conn->prepare("SELECT firstName, lastName FROM users WHERE email = ?");
-$query->bind_param("s", $email);
-$query->execute();
-$result = $query->get_result();
-$user = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +12,15 @@ $user = $result->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <?php include('logout.php'); ?>
+    <header>
+        <h1>Welcome, <?php echo $_SESSION['firstName']; ?>!</h1>
+        <a href="logout.php">Logout</a>
+    </header>
+    <div class="content">
+        <p>Here is the content of the homepage.</p>
+    </div>
 </body>
 </html>

@@ -14,7 +14,7 @@
         <div class="input-group">
            <i class="fas fa-user"></i>
            <input type="text" name="fName" id="fName" placeholder="First Name" required>
-           <label for="fname">First Name</label>
+           <label for="fName">First Name</label>
         </div>
         <div class="input-group">
             <i class="fas fa-user"></i>
@@ -48,7 +48,7 @@
 
     <div class="container" id="signIn">
         <h1 class="form-title">Sign In</h1>
-        <form method="post" action="register.php">
+        <form method="post" action="login.php">
           <div class="input-group">
               <i class="fas fa-envelope"></i>
               <input type="email" name="email" id="email" placeholder="Email" required>
@@ -72,7 +72,7 @@
           <i class="fab fa-facebook"></i>
         </div>
         <div class="links">
-          <p>Don't have account yet?</p>
+          <p>Don't have an account yet?</p>
           <button id="signUpButton">Sign Up</button>
         </div>
       </div>
