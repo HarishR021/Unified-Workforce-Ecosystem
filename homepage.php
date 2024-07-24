@@ -19,12 +19,12 @@ if (!isset($_SESSION['email'])) {
         <h1>Welcome, <?php echo htmlspecialchars($_SESSION['firstName']); ?>!</h1>
         <a href="logout.php">Logout</a>
     </header>
-    <nav>
-        <a href="homepage.php">Home</a>
-        <a href="about1.html">About</a>
-        <a href="services1.html">Services</a>
-        <a href="contact1.html">Contact</a>
-        <a href="profile1.html">Profile</a>
+    <nav class="main-nav">
+        <a href="homepage.php" class="nav-item">Home</a>
+        <a href="about1.php" class="nav-item">About</a>
+        <a href="services1.php" class="nav-item">Services</a>
+        <a href="contact1.php" class="nav-item">Contact</a>
+        <a href="profile1.php" class="nav-item">Profile</a>
     </nav>
     <div class="content">
         <p>Here is the content of the homepage.</p>
