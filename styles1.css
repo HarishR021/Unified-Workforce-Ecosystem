@@ -1,4 +1,4 @@
-/* General Reset */
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,70 +7,56 @@
 }
 
 body {
-    background-color: #e2e2e2;
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-}
-
-/* Header */
-header {
-    background: #ffffff;
-    padding: 1rem;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    font-size: 1.5rem;
     color: #333;
 }
 
-header .btn {
-    background: #ff6f61;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+header {
+    background: #f76c6c;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header a {
+    color: white;
     text-decoration: none;
     font-weight: bold;
+    margin-left: 1rem;
 }
 
-header .btn:hover {
-    background: #e65c50;
+header a:hover {
+    text-decoration: underline;
 }
 
-/* Navigation */
 .main-nav {
     display: flex;
-    justify-content: center;
-    background: #ffffff;
-    padding: 1rem 0;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: #f0f0f0;
+    margin-bottom: 2rem; /* Add spacing below the navigation bar */
 }
 
-.main-nav .nav-item {
-    margin: 0 1rem;
+.nav-item {
+    color: #f76c6c;
     text-decoration: none;
-    color: #333;
     font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background 0.3s;
 }
 
-.main-nav .nav-item:hover {
-    color: #ff6f61;
+.nav-item:hover {
+    background: #e54b6b;
+    color: white;
 }
 
-/* Content */
 .content {
     padding: 2rem;
     text-align: center;
 }
 
-.content p {
-    font-size: 1.2rem;
-    color: #555;
-}
-
-/* Forms */
 .container {
     background: #fff;
     width: 450px;
@@ -90,6 +76,7 @@ form {
     text-align: center;
     padding: 1.3rem;
     margin-bottom: 0.4rem;
+    color: #333;
 }
 
 input {
@@ -115,7 +102,7 @@ input {
 input:focus {
     background-color: transparent;
     outline: transparent;
-    border-bottom: 2px solid hsl(327, 90%, 28%);
+    border-bottom: 2px solid #f76c6c;
 }
 
 input::placeholder {
@@ -134,7 +121,7 @@ label {
 input:focus~label,
 input:not(:placeholder-shown)~label {
     top: -3em;
-    color: hsl(327, 90%, 28%);
+    color: #f76c6c;
     font-size: 15px;
 }
 
@@ -146,11 +133,11 @@ input:not(:placeholder-shown)~label {
 
 .recover a {
     text-decoration: none;
-    color: rgb(125, 125, 235);
+    color: #f76c6c;
 }
 
 .recover a:hover {
-    color: blue;
+    color: #d63946;
     text-decoration: underline;
 }
 
@@ -161,20 +148,21 @@ input:not(:placeholder-shown)~label {
     outline: none;
     border: none;
     width: 100%;
-    background: rgb(125, 125, 235);
+    background: #f76c6c;
     color: white;
     cursor: pointer;
-    transition: 0.9s;
+    transition: 0.3s;
 }
 
 .btn:hover {
-    background: #07001f;
+    background: #e54b6b;
 }
 
 .or {
     font-size: 1.1rem;
     margin-top: 0.5rem;
     text-align: center;
+    color: #333;
 }
 
 .icons {
@@ -182,20 +170,20 @@ input:not(:placeholder-shown)~label {
 }
 
 .icons i {
-    color: rgb(125, 125, 235);
+    color: #f76c6c;
     padding: 0.8rem 1.5rem;
     border-radius: 10px;
     font-size: 1.5rem;
     cursor: pointer;
-    border: 2px solid #dfe9f5;
+    border: 2px solid #f0f0f0;
     margin: 0 15px;
-    transition: 1s;
+    transition: 0.3s;
 }
 
 .icons i:hover {
-    background: #07001f;
+    background: #e54b6b;
     font-size: 1.6rem;
-    border: 2px solid rgb(125, 125, 235);
+    border: 2px solid #f76c6c;
 }
 
 .links {
@@ -207,7 +195,7 @@ input:not(:placeholder-shown)~label {
 }
 
 button {
-    color: rgb(125, 125, 235);
+    color: #f76c6c;
     border: none;
     background-color: transparent;
     font-size: 1rem;
@@ -216,21 +204,5 @@ button {
 
 button:hover {
     text-decoration: underline;
-    color: blue;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .main-nav {
-        flex-direction: column;
-    }
-
-    .main-nav .nav-item {
-        margin: 0.5rem 0;
-    }
-
-    .container {
-        width: 90%;
-        margin: 20px auto;
-    }
+    color: #d63946;
 }
