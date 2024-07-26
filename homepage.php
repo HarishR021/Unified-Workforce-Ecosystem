@@ -1,11 +1,21 @@
 <?php
 session_start();
+include 'connect.php';
+
 if (!isset($_SESSION['email'])) {
-    header("Location: login.php");
+    header('Location: index.php');
     exit();
 }
-?>
 
+$email = $_SESSION['email'];
+
+$stmt = $conn->prepare("SELECT firstName, lastName, profileImage FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->bind_result($firstName, $lastName, $profileImage);
+$stmt->fetch();
+$stmt->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,19 +25,21 @@ if (!isset($_SESSION['email'])) {
     <link rel="stylesheet" href="styles1.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome, <?php echo htmlspecialchars($_SESSION['firstName']); ?>!</h1>
+    <nav class="navbar">
+        <a href="homepage.php">Home</a>
+        <a href="about1.php">About</a>
+        <a href="services1.php">Services</a>
+        <a href="contact1.php">Contact</a>
+        <a href="profile1.php">Profile</a>
         <a href="logout.php">Logout</a>
-    </header>
-    <nav class="main-nav">
-        <a href="homepage.php" class="nav-item">Home</a>
-        <a href="about1.php" class="nav-item">About</a>
-        <a href="services1.php" class="nav-item">Services</a>
-        <a href="contact1.php" class="nav-item">Contact</a>
-        <a href="profile1.php" class="nav-item">Profile</a>
     </nav>
-    <div class="content">
-        <p>Here is the content of the homepage.</p>
+    <div class="user-info">
+        <?php if ($profileImage): ?>
+            <img src="data:image/jpeg;base64,<?= base64_encode($profileImage) ?>" alt="Profile Image" class="profile-image">
+        <?php endif; ?>
+        <span><?= htmlspecialchars($firstName) ?> <?= htmlspecialchars($lastName) ?></span>
+        <span><?= htmlspecialchars($email) ?></span>
     </div>
+    <h1>Welcome to the Homepage</h1>
 </body>
 </html>

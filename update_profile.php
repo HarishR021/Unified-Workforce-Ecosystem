@@ -1,35 +1,35 @@
 <?php
 session_start();
+include 'connect.php';
+
 if (!isset($_SESSION['email'])) {
-    header("Location: login.php");
+    header('Location: index.php');
     exit();
 }
 
-include 'db_connection1.php';
+$email = $_SESSION['email'];
 
-$firstName = $_POST['firstName'];
-$lastName = $_POST['lastName'];
-$email = $_POST['email'];
-$userId = $_SESSION['userId'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $password = $_POST['password'];
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-$profilePic = null;
-if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
-    $profilePic = file_get_contents($_FILES['profilePic']['tmp_name']);
+    $stmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, password = ? WHERE email = ?");
+    $stmt->bind_param("ssss", $firstName, $lastName, $hashed_password, $email);
+    $stmt->execute();
+    $stmt->close();
+
+    if (isset($_FILES['profileImage']) && $_FILES['profileImage']['size'] > 0) {
+        $profileImage = file_get_contents($_FILES['profileImage']['tmp_name']);
+        $stmt = $conn->prepare("UPDATE users SET profileImage = ? WHERE email = ?");
+        $stmt->bind_param("bs", $profileImage, $email);
+        $stmt->send_long_data(0, $profileImage);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    header('Location: profile1.php');
+    exit();
 }
-
-$sql = "UPDATE users SET firstName=?, lastName=?, email=?, profile=? WHERE ID=?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sssbi", $firstName, $lastName, $email, $profilePic, $userId);
-
-if ($stmt->execute()) {
-    $_SESSION['firstName'] = $firstName;
-    $_SESSION['lastName'] = $lastName;
-    $_SESSION['email'] = $email;
-    header("Location: profile.php?success=1");
-} else {
-    header("Location: profile.php?error=1");
-}
-
-$stmt->close();
-$conn->close();
 ?>

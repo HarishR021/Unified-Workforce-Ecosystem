@@ -1,65 +1,25 @@
 <?php
 session_start();
-require 'db_connection1.php'; // Ensure the connection script is correct
+include 'connect.php'; // Include database connection file
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Prepare and execute SQL query to check credentials
-    $stmt = $conn->prepare("SELECT Id, firstName, lastName, email, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($sql);
 
-    if ($result->num_rows === 1) {
+    if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        // Verify the password
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['userId'] = $user['Id'];
-            $_SESSION['firstName'] = $user['firstName'];
-            $_SESSION['lastName'] = $user['lastName'];
-            $_SESSION['email'] = $user['email'];
-
-            // Redirect to home page
-            header("Location: homepage.php");
-            exit();
-        } else {
-            $error = "Invalid email or password.";
-        }
+        // Store user information in the session
+        $_SESSION['user_id'] = $user['Id'];
+        $_SESSION['first_name'] = $user['firstName'];
+        $_SESSION['last_name'] = $user['lastName'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['profile_image'] = $user['profileImage'];
+        header("Location: homepage.php"); // Redirect to homepage
     } else {
-        $error = "Invalid email or password.";
+        echo "Invalid email or password.";
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles1.css">
-</head>
-<body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
-        <form method="post" action="">
-            <div class="input-group">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required>
-            </div>
-            <input type="submit" class="btn" value="Login">
-        </form>
-        <p><a href="register.php">Register</a></p>
-    </div>
-</body>
-</html>
